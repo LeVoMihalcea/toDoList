@@ -4,6 +4,9 @@ addButton.addEventListener("click", addToList);
 deleteButton = document.getElementById("deleteButton");
 deleteButton.addEventListener("click", deleteFromList);
 
+updateButton = document.getElementById("updateButton");
+updateButton.addEventListener("click", updateFromList);
+
 activityNameField = document.getElementById("activityName");
 dateField = document.getElementById("date");
 locationField = document.getElementById("location");
@@ -46,6 +49,25 @@ function deleteFromList(){
         if(Number(rows[i].cells[0].innerHTML) === toDelete){
             console.log("deleting" + toDelete);
             table.deleteRow(i);
+        }
+    }
+}
+
+function updateFromList(){
+    if(deleteField.length <= 0)
+        alert("Please provide an index to update!");
+
+    let table = document.getElementById("tableBody");
+    let rows = $(table).find('> tr');
+    let toUpdate = Number(deleteField.value);
+    console.log(toUpdate);
+    for(let i = 0; i<rows.length; i++){
+        console.log(rows[i].cells[0].innerHTML + " - " + toUpdate);
+        if(Number(rows[i].cells[0].innerHTML) === toUpdate){
+            console.log("updating" + toUpdate);
+            rows[i].cells[1].innerHTML = activityNameField.value;
+            rows[i].cells[2].innerHTML = dateField.value;
+            rows[i].cells[3].innerHTML = locationField.value;
         }
     }
 }
