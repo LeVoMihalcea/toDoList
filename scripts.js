@@ -1,19 +1,22 @@
-addButton = document.getElementById("addButton")
-addButton.addEventListener("click", addToList);
+let PROTOCOL = "http://";
+let IP = "localhost:";
+let PORT = "19999";
+let GET_ALL_PATH = "/server/getall";
+let SEND_PATH = "/server/add";
+let EDIT_PATH = "/server/update";
+let DELETE_PATH = '/server/delete';
 
-deleteButton = document.getElementById("deleteButton");
-deleteButton.addEventListener("click", deleteFromList);
+addButton = document.getElementById("addButton");
+if(addButton != null)
+    addButton.addEventListener("click", addToList);
 
-updateButton = document.getElementById("updateButton");
-updateButton.addEventListener("click", updateFromList);
+editButton = document.getElementById("editButton");
+if(editButton != null)
+    editButton.addEventListener("click", update);
 
 activityNameField = document.getElementById("activityName");
 dateField = document.getElementById("date");
 locationField = document.getElementById("location");
-deleteField = document.getElementById("deleteIndex");
-
-
-let currentIndex = 1;
 
 function addToList() {
     if(activityNameField.length <= 0){
@@ -22,52 +25,52 @@ function addToList() {
     if(locationField.length <= 0){
         alert("The location name can't be empty!");
     }
+    console.log("a intrat in add");
+    let activity = {
+        "name": activityNameField.value,
+        "location": locationField.value,
+        "date": ""+dateField.value
+    };
 
-    let table = document.getElementById("tableBody");
-    let row = table.insertRow(-1);
-    let indexCell = row.insertCell(0);
-    let activityName = row.insertCell(1);
-    let activityDate = row.insertCell(2);
-    let activityLocation = row.insertCell(3);
+    //TODO: post
+    let request = new XMLHttpRequest();
+    let url = PROTOCOL+IP+PORT+SEND_PATH;
+    request.open("POST", url, false);
+    request.setRequestHeader("Content-type", "application/json");
+    request.send(JSON.stringify(activity));
 
-    indexCell.innerHTML = String(currentIndex);
-    currentIndex++;
-    activityName.innerHTML = activityNameField.value;
-    activityDate.innerHTML = dateField.value;
-    activityLocation.innerHTML = locationField.value;
+    //setTimeout(() => window.location.replace("index.html"), 500);
+    window.location.replace("index.html");
+    console.log("merge");
 }
 
-function deleteFromList(){
-    if(deleteField.length <= 0)
-        alert("Please provide an index to delete!");
-
-    let table = document.getElementById("tableBody");
-    let rows = $(table).find('> tr');
-    let toDelete = Number(deleteField.value);
-    for(let i = 0; i<rows.length; i++){
-        console.log(rows[i].cells[0].innerHTML + " - " + toDelete);
-        if(Number(rows[i].cells[0].innerHTML) === toDelete){
-            console.log("deleting" + toDelete);
-            table.deleteRow(i);
-        }
+function update(){
+    if(activityNameField.length <= 0){
+        alert("The activity name can't be empty!");
     }
-}
-
-function updateFromList(){
-    if(deleteField.length <= 0)
-        alert("Please provide an index to update!");
-
-    let table = document.getElementById("tableBody");
-    let rows = $(table).find('> tr');
-    let toUpdate = Number(deleteField.value);
-    console.log(toUpdate);
-    for(let i = 0; i<rows.length; i++){
-        console.log(rows[i].cells[0].innerHTML + " - " + toUpdate);
-        if(Number(rows[i].cells[0].innerHTML) === toUpdate){
-            console.log("updating" + toUpdate);
-            rows[i].cells[1].innerHTML = activityNameField.value;
-            rows[i].cells[2].innerHTML = dateField.value;
-            rows[i].cells[3].innerHTML = locationField.value;
-        }
+    if(locationField.length <= 0){
+        alert("The location name can't be empty!");
     }
+    console.log("a intrat in edit");
+    let activity = {
+        "name": activityNameField.value,
+        "location": locationField.value,
+        "date": ""+dateField.value
+    };
+
+    //TODO: post
+    let request = new XMLHttpRequest();
+
+    let url_string = window.location.href;
+    let params = new URL(url_string);
+    let id = params.searchParams.get("id");
+
+    let url = PROTOCOL+IP+PORT+EDIT_PATH+"/"+id;
+    request.open("PATCH", url, false);
+    request.setRequestHeader("Content-type", "application/json");
+    request.send(JSON.stringify(activity));
+
+    //setTimeout(() => window.location.replace("index.html"), 500);
+    window.location.replace("index.html");
+    console.log("merge");
 }
