@@ -15,3 +15,8 @@ class ToDo(object):
             'location': self.location,
             'date': self.date
         }
+
+    def __str__(self) -> str:
+        return self.id + " " + self.name + " " + self.location + " " + self.date
+
+
