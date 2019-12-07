@@ -23,9 +23,9 @@ function openAdd(){
 function generateButtons(id){
     let buttons = document.createElement("div");
     let deleteButton = document.createElement("button");
-    deleteButton.className = "btn btn-dark";
-    deleteButton.innerHTML = "X";
-    deleteButton.style.width = "50px";
+    deleteButton.className = "btn btn-link";
+    deleteButton.innerHTML = '<img src=\"icons/trash-var-solid/trash-var-solid.svg\" style=\"max-height: 20px\">';
+    deleteButton.style.width = "100px";
     deleteButton.style.height = "50px";
     deleteButton.style.float = "right";
     deleteButton.addEventListener("click",
@@ -40,11 +40,12 @@ function generateButtons(id){
     buttons.appendChild(deleteButton);
 
     let editButton = document.createElement("button");
-    editButton.className = "btn btn-dark";
-    editButton.innerHTML = "E";
-    editButton.style.width = "50px";
+    editButton.className = "btn btn-link";
+    editButton.innerHTML = '<img src=\"icons/document-edit-solid/document-edit-solid.svg\" style=\"max-height: 20px\">';
+    editButton.style.width = "100px";
     editButton.style.height = "50px";
     editButton.style.float = "right";
+    editButton.style.marginRight = "10px";
     editButton.addEventListener("click",
         () => window.location.replace("edit.html?id="+id)
     );

@@ -5,8 +5,9 @@ let GET_ALL_PATH = "/server/getall";
 let SEND_PATH = "/server/add";
 let EDIT_PATH = "/server/update";
 let DELETE_PATH = '/server/delete';
+let GET_ONE_PATH = "/server/getone";
 
-addButton = document.getElementById("addButton");
+addButton = document.getElementById("add");
 if(addButton != null)
     addButton.addEventListener("click", addToList);
 
@@ -17,6 +18,29 @@ if(editButton != null)
 activityNameField = document.getElementById("activityName");
 dateField = document.getElementById("date");
 locationField = document.getElementById("location");
+
+function autofill(){
+    let request = new XMLHttpRequest();
+
+    let url_string = window.location.href;
+    let params = new URL(url_string);
+    let id = params.searchParams.get("id");
+    if(id.length >= 1){
+        let url = PROTOCOL+IP+PORT+GET_ONE_PATH+"/"+id;
+        request.open('GET', url, false);
+        request.onload = function(){
+            let data = JSON.parse(this.response);
+            if (request.status >= 200 && request.status < 400) {
+                activityNameField.value = data.name;
+                locationField.value = data.location;
+                dateField.value = data.date;
+            }
+        }
+    }
+    request.send();
+}
+
+autofill();
 
 function addToList() {
     if(activityNameField.length <= 0){

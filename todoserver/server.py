@@ -1,77 +1,95 @@
 from flask import *
-
+import pyodbc
 from MyJsonEncoder import MyJsonEncoder
 from ToDo import ToDo
 import uuid
 
+conn = pyodbc.connect('Driver={SQL Server};'
+                      'Server=LAPTOP-LEO\SQLEXPRESS;'
+                      'Database=toDo;'
+                      'Trusted_Connection=yes;')
+cursor = conn.cursor()
+cursor.execute('SELECT * from dbo.activities order by activityDate')
+
+
+def get_list():
+    global cursor
+    cursor.execute('SELECT * from dbo.activities order by activityDate')
+    my_list = []
+    for activity in cursor:
+        todo = ToDo()
+        todo.name = activity[1]
+        todo.location = activity[2]
+        todo.date = activity[3]
+        todo.id = activity[0]
+        my_list.append(todo)
+    return my_list
+
+
 app = Flask(__name__)
-
-todo1 = ToDo()
-todo1.id = str(uuid.uuid1())
-todo1.name = "todo1"
-todo1.location = "marasti"
-todo1.date = "12/22/2019"
-todo2 = ToDo()
-todo2.id = str(uuid.uuid1())
-todo2.name = "todo2"
-todo2.location = "manastur"
-todo2.date = "12/13/2019"
-todo3 = ToDo()
-todo3.id = str(uuid.uuid1())
-todo3.name = "todo3"
-todo3.location = "iris"
-todo3.date = "8/22/2019"
-
-currentId = 4
-
-my_list = list()
-my_list.append(todo1)
-my_list.append(todo2)
-my_list.append(todo3)
 
 
 @app.route('/server/add', methods=['POST'])
 def add():
-    global currentId
     data = request.get_json()
-    todo = ToDo()
-    todo.name = data["name"]
-    todo.location = data["location"]
-    todo.date = data["date"]
-    todo.id = str(uuid.uuid1())
-    my_list.append(todo)
+    # todo = ToDo()
+    # todo.name = data["name"]
+    # todo.location = data["location"]
+    # todo.date = data["date"]
+    # todo.id = str(uuid.uuid1())
+    # my_list.append(todo)
+
+    sql = 'insert into activities(id, activityName, locationName, activityDate) values (?, ?, ?, ?)'
+    vars = (uuid.uuid1(), data['name'], data['location'], data['date'])
+
+    cursor.execute(sql, vars)
+
     return make_response("", 201)
 
 
 @app.route('/server/getall', methods=['GET'])
 def getall():
-    return make_response(jsonify(my_list), 200)
+    return make_response(jsonify(get_list()), 200)
+
+@app.route('/server/getone/<id>', methods=['GET'])
+def getone(id):
+    sql = 'select * from activities where activities.id = ?'
+    vars = (id)
+    cursor.execute(sql, vars)
+    my_list = []
+    print(str(cursor))
+    for activity in cursor:
+        todo = ToDo()
+        todo.name = activity[1]
+        todo.location = activity[2]
+        todo.date = activity[3]
+        todo.id = activity[0]
+        my_list.append(todo)
+    return make_response(jsonify(my_list[0]), 200)
 
 
 @app.route('/server/update/<id>', methods=['PATCH'])
 def update(id):
     data = request.get_json()
-    todo = ToDo()
-    todo.name = data["name"]
-    todo.location = data["location"]
-    todo.date = data["date"]
-
-    for activity in my_list:
-        if activity.id == id:
-            activity.name = todo.name
-            activity.location = todo.location
-            activity.date = todo.date
-            return make_response("", 202)
-    return make_response("", 404)
+    sql = 'update activities set activityName=?, locationName=?, activityDate=? where activities.id = ? '
+    vars = (data['name'], data['location'], data['date'], id)
+    try:
+        cursor.execute(sql, vars)
+        return make_response("", 202)
+    except Exception:
+        return make_response("", 404)
 
 
 @app.route('/server/delete/<id>', methods=['DELETE'])
 def delete(id):
-    for i in range(len(my_list)):
-        if str(my_list[i].id) == str(id):
-            del my_list[i]
-            return make_response("", 200)
-    return make_response("", 404)
+    sql = 'delete from activities where activities.id = ? '
+    vars = (id)
+
+    try:
+        a = cursor.execute(sql, vars)
+        return make_response("", 200)
+    except Exception:
+        return make_response("", 404)
 
 
 if __name__ == "__main__":
