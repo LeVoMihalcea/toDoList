@@ -2,44 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e781aef6-55c8-447e-b7b4-36a589819382" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SQLQuery1.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/128x128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/16x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/256x256.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/32x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/512x512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/64x64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/document-edit-solid.ai" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/document-edit-solid.psd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/document-edit-solid/document-edit-solid.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/128x128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/16x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/256x256.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/32x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/512x512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/64x64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/plus-solid.ai" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/plus-solid.psd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/plus-solid/plus-solid.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/128x128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/16x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/256x256.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/32x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/512x512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/64x64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/trash-var-solid.ai" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/trash-var-solid.psd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/trash-var-solid/trash-var-solid.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todoserver/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/edit.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todoserver/ToDo.py" beforeDir="false" afterPath="$PROJECT_DIR$/todoserver/ToDo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todoserver/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/todoserver/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +72,7 @@
       <workItem from="1575119967784" duration="5836000" />
       <workItem from="1575305459827" duration="3450000" />
       <workItem from="1575552630946" duration="709000" />
-      <workItem from="1575629742951" duration="25344000" />
+      <workItem from="1575629742951" duration="29857000" />
     </task>
     <servers />
   </component>

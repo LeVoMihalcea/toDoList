@@ -69,11 +69,13 @@ function addToList() {
 }
 
 function update(){
-    if(activityNameField.length <= 0){
+    if(activityNameField.value.length <= 0){
         alert("The activity name can't be empty!");
+        return;
     }
-    if(locationField.length <= 0){
+    if(locationField.value.length <= 0){
         alert("The location name can't be empty!");
+        return;
     }
     console.log("a intrat in edit");
     let activity = {

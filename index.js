@@ -16,11 +16,11 @@ addButton.addEventListener("click", openAdd);
 
 repopulate();
 
-function openAdd(){
+function openAdd() {
     window.location.replace("add.html");
 }
 
-function generateButtons(id){
+function generateButtons(id) {
     let buttons = document.createElement("div");
     let deleteButton = document.createElement("button");
     deleteButton.className = "btn btn-link";
@@ -30,11 +30,15 @@ function generateButtons(id){
     deleteButton.style.float = "right";
     deleteButton.addEventListener("click",
         () => {
-            let request = new XMLHttpRequest();
-            let url = PROTOCOL + IP + PORT + DELETE_PATH + "/" + id;
-            request.open('DELETE', url, false);
-            request.send();
-            repopulate();
+            Confirm('Delete', 'Are you sure you want to delete this activity',
+                'Yes', 'Cancel',
+                function () {
+                    let request = new XMLHttpRequest();
+                    let url = PROTOCOL + IP + PORT + DELETE_PATH + "/" + id;
+                    request.open('DELETE', url, false);
+                    request.send();
+                    repopulate();
+                });;
         }
     );
     buttons.appendChild(deleteButton);
@@ -47,7 +51,7 @@ function generateButtons(id){
     editButton.style.float = "right";
     editButton.style.marginRight = "10px";
     editButton.addEventListener("click",
-        () => window.location.replace("edit.html?id="+id)
+        () => window.location.replace("edit.html?id=" + id)
     );
 
     buttons.appendChild(deleteButton);
@@ -55,18 +59,17 @@ function generateButtons(id){
     return buttons;
 }
 
-function repopulate(){
+function repopulate() {
     let request = new XMLHttpRequest();
-    let url = PROTOCOL+IP+PORT+GET_ALL_PATH;
+    let url = PROTOCOL + IP + PORT + GET_ALL_PATH;
     console.log(url);
     request.open('GET', url, false);
-    request.onload = function() {
+    request.onload = function () {
         // Begin accessing JSON data here
         let data = JSON.parse(this.response);
 
         let Parent = document.getElementById("tableBody");
-        while(Parent.hasChildNodes())
-        {
+        while (Parent.hasChildNodes()) {
             Parent.removeChild(Parent.firstChild);
         }
 
@@ -91,3 +94,35 @@ function repopulate(){
 
     request.send();
 }
+
+
+function Confirm(title, msg, $true, $false, givenFunction) { /*change*/
+    var $content = "" +
+        "<div class='dialog-ovelay'>" +
+        "<div class='dialog'>" +
+        "<div class='dialog-msg'>" +
+        " <p> " + msg + " </p> " +
+        "</div>" +
+        "<footer>" +
+        "<div class='controls'>" +
+        " <button class='button button-danger doAction'>" + $true + "</button> " +
+        " <button class='button button-default cancelAction'>" + $false + "</button> " +
+        "</div>" +
+        "</footer>" +
+        "</div>" +
+        "</div>";
+    $('body').prepend($content);
+    $('.doAction').click(function () {
+        givenFunction();
+        $(this).parents('.dialog-ovelay').fadeOut(500, function () {
+            $(this).remove();
+        });
+    });
+    $('.cancelAction, .fa-close').click(function () {
+        $(this).parents('.dialog-ovelay').fadeOut(500, function () {
+            $(this).remove();
+        });
+    });
+
+}
+
